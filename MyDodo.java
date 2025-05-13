@@ -111,8 +111,20 @@ public class MyDodo extends Dodo
             showError("Kan niet");
         }
     }
-    
-    
+        public boolean grainAhead(){
+        move();
+        if (onGrain()){
+        turn180();
+        move();
+        turn180();
+        return true;
+        }else {
+        turn180();
+        move();
+        turn180();
+        return false;
+        }
+    }
     /**
      * Walks to edge of the world printing the coordinates at each step
      * 
@@ -125,7 +137,7 @@ public class MyDodo extends Dodo
         while( ! borderAhead() ){
         int x = getX();
         int y = getY();
-        System.out.println("Coordinates: (" + x + ", " + y + ")");
+        System.out.println("(" + x + ", " + y + ")");
         move();
         }
     }
