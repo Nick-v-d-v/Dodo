@@ -97,7 +97,20 @@ public class MyDodo extends Dodo
         turnRight();
         turnRight();
     }
-    
+        public void climbOverFence() {
+        if (fenceAhead() && !borderAhead()) {
+            turnLeft();
+            move();
+            turnRight(); 
+            move();
+            move();
+            turnRight();
+            move();
+            turnLeft();
+        } else {
+            showError("Kan niet");
+        }
+    }
     
     
     /**
@@ -110,8 +123,10 @@ public class MyDodo extends Dodo
 
     public void walkToWorldEdgePrintingCoordinates( ){
         while( ! borderAhead() ){
-            // print coordinates
-            move();
+        int x = getX();
+        int y = getY();
+        System.out.println("Coordinates: (" + x + ", " + y + ")");
+        move();
         }
     }
 
