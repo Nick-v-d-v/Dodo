@@ -68,6 +68,12 @@ public class MyDodo extends Dodo
         }
     }
     
+        public void gotoEgg() {
+        while (!onEgg()) {
+            step();
+         }
+    }
+
     /**
      * Returns the number of eggs Dodo has hatched so far.
      * 
@@ -86,17 +92,19 @@ public class MyDodo extends Dodo
      * @param   int distance: the number of steps made
      */
     public void jump( int distance ) {
-        int nrStepsTaken = 0;               // set counter to 0
-        while ( nrStepsTaken < distance ) { // check if more steps must be taken  
-            move();                         // take a step
-            nrStepsTaken++;                 // increment the counter
+        int nrStepsTaken = 0;     
+        while ( nrStepsTaken < distance ) {
+            move();                   
+            nrStepsTaken++;           
             System.out.println("Moved" + nrStepsTaken);
         }
     }
+    
     public void turn180(){
         turnRight();
         turnRight();
     }
+    
         public void climbOverFence() {
         if (fenceAhead() && !borderAhead()) {
             turnLeft();
@@ -111,6 +119,7 @@ public class MyDodo extends Dodo
             showError("Kan niet");
         }
     }
+    
         public boolean grainAhead(){
         move();
         if (onGrain()){
@@ -125,6 +134,7 @@ public class MyDodo extends Dodo
         return false;
         }
     }
+    
     /**
      * Walks to edge of the world printing the coordinates at each step
      * 
@@ -142,6 +152,34 @@ public class MyDodo extends Dodo
         }
     }
 
+    public void goBackToStartOfRowAndFaceBack() {
+        turn180();
+        walkToWorldEdgePrintingCoordinates();
+        turn180();           
+    }
+
+    public void walkToWorldEdgeClimbingOverFences() {
+        while (!borderAhead()) {
+            if (fenceAhead()) {
+                climbOverFence();  
+            } else if (canMove()) {
+                move();           
+            } else {
+                showError("Kan niet"); 
+                break;
+            }
+        }
+    }
+    
+    public void pickUpGrainsAndPrintCoordinates() {
+        if (onGrain()) {
+        int x = getX();
+        int y = getY();
+        System.out.println("Graan op: (" + x + ", " + y + ")");
+        pickUpGrain();
+        }
+    }
+    
     /**
      * Test if Dodo can lay an egg.
      *          (there is not already an egg in the cell)
