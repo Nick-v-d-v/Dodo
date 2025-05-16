@@ -123,16 +123,18 @@ public class MyDodo extends Dodo
         public boolean grainAhead(){
         move();
         if (onGrain()){
-        turn180();
-        move();
-        turn180();
+        stepOneCellBackwards();
         return true;
         }else {
-        turn180();
-        move();
-        turn180();
+        stepOneCellBackwards();
         return false;
         }
+    }
+    
+    public void stepOneCellBackwards() {
+        turn180();
+        move();
+        turn180(); 
     }
     
     /**
@@ -143,7 +145,7 @@ public class MyDodo extends Dodo
      *              Coordinates of each cell printed in the console.
      */
 
-    public void walkToWorldEdgePrintingCoordinates( ){
+    public void walkToWorldEdgePrintingCoordinates(){
         while( ! borderAhead() ){
         int x = getX();
         int y = getY();
@@ -151,10 +153,16 @@ public class MyDodo extends Dodo
         move();
         }
     }
-
+    
+    public void walkToWorldEdge(){
+        while( ! borderAhead() ){
+        move();
+        }
+    }
+    
     public void goBackToStartOfRowAndFaceBack() {
         turn180();
-        walkToWorldEdgePrintingCoordinates();
+        walkToWorldEdge();
         turn180();           
     }
 
@@ -171,15 +179,43 @@ public class MyDodo extends Dodo
         }
     }
     
-    public void pickUpGrainsAndPrintCoordinates() {
-        if (onGrain()) {
-        int x = getX();
-        int y = getY();
-        System.out.println("Graan op: (" + x + ", " + y + ")");
-        pickUpGrain();
+        public void walkToWorldEdgeClimbingOverFencesStopAtNest() {
+        while (!borderAhead()) {
+            if (onNest() && canLayEgg()) {
+                layEgg();
+            }
+            if (fenceAhead()) {
+                climbOverFence(); 
+            } else if (canMove()) {
+                move(); 
+            } else {
+                showError("Kan niet"); 
+                break;
+            }
         }
     }
-    
+
+        public void pickUpGrainsAndPrintCoordinates() {
+        while (!borderAhead()) {
+        step();
+        if (onGrain()) {
+            int x = getX();
+            int y = getY();
+            System.out.println("Grain op: (" + x + ", " + y + ")");
+            pickUpGrain();
+            } 
+        }
+    }   
+        
+        public void walkToEdgeAndLayEggsInEmptyNests() {
+        while (!borderAhead()) {
+        step();
+        if (onNest() && canLayEgg()) {
+            layEgg();
+            }
+        }
+    }
+
     /**
      * Test if Dodo can lay an egg.
      *          (there is not already an egg in the cell)
@@ -192,11 +228,11 @@ public class MyDodo extends Dodo
      *                      (already an egg in the cell)
      */
 
-    public boolean canLayEgg( ){
+    public boolean canLayEgg( ) {
         if( onEgg() ){
             return false;
        }else{
             return true;
-       }
-    }  
-}
+           }
+        }  
+    }
