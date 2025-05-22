@@ -114,6 +114,46 @@ public class MyDodo extends Dodo
         }
     }
 
+    public void eggTrailToNest() {
+        while(!onNest() ){
+            if (canMove() && nestAhead()) {
+                move();
+            }
+            if (canMove() && eggAhead()) {
+                move();
+            } else {
+                turnLeft();
+                if (canMove() && nestAhead()) {
+                move();
+            }
+            if (canMove() && eggAhead()) {
+                move();
+            } else {
+                turn180();
+            }
+            }
+        }
+    }
+    
+    public void eenVoudigDoolhof() {
+        while (!onNest()) {
+            turnRight();
+            if (canMove() && !fenceAhead()) {
+                move();
+            } else {
+                turnLeft();
+                if (canMove() && !fenceAhead()) {
+                    move();
+                } else {
+                    turnLeft();
+                }
+            }
+            if (onNest()) {
+                showCompliment("Goed gedaan dodo!!!");
+            }
+        }
+    }
+    
     public void walkToWorldEdgePrintingCoordinates(){
         while( ! borderAhead() ){
         int x = getX();
@@ -124,11 +164,11 @@ public class MyDodo extends Dodo
     }
     
     public void walkToWorldEdge(){
-        while( ! borderAhead() ){
+        while(!borderAhead() ){
         move();
         }
     }
-    
+
     public void goBackToStartOfRowAndFaceBack() {
         turn180();
         walkToWorldEdge();
