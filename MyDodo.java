@@ -66,6 +66,30 @@ public class MyDodo extends Dodo
         turnRight();
     }
     
+    public void faceNorth() { 
+    while (getDirection() != NORTH) {
+        turnLeft();
+        }
+    }
+    
+    public void faceEast() { 
+    while (getDirection() != EAST) {
+        turnLeft();
+        }
+    }
+    
+    public void faceSouth() { 
+    while (getDirection() != SOUTH) {
+        turnLeft();
+        }
+    }
+    
+    public void faceWest() { 
+    while (getDirection() != WEST) {
+        turnLeft();
+        }
+    }
+    
         public void climbOverFence() {
         if (fenceAhead() && !borderAhead()) {
             turnLeft();
