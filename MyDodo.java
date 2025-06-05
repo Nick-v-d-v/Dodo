@@ -90,6 +90,28 @@ public class MyDodo extends Dodo
         }
     }
     
+    public void goToLocation(int coordX, int coordY) {
+        if (coordX > getWorld().getWidth() {
+            showError("Kan niet");
+        }
+        while (getX() < coordX) {
+            faceEast();
+            move();
+        }
+        while (getX() > coordX) {
+            faceWest();
+            move();
+        }
+        while (getY() < coordY) {
+            faceSouth();
+            move();
+        }
+        while (getY() > coordY) {
+            faceNorth();
+            move();
+        }
+    } 
+    
         public void climbOverFence() {
         if (fenceAhead() && !borderAhead()) {
             turnLeft();
