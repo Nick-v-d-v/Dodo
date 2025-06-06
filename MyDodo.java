@@ -32,6 +32,29 @@ public class MyDodo extends Dodo
             return true;
         }
     }
+    
+    public boolean validCoordinates(int x, int y) {
+        if (x < 0) {
+            showError( "Invalid coordinates" );
+            return false;
+        }
+        
+        if (x > getWorld().getWidth()) {
+            showError( "Invalid coordinates" );
+            return false;
+        }
+        
+        if (y < 0) {
+            showError( "Invalid coordinates" );
+            return false;
+        }
+        
+        if (x > getWorld().getHeight()) {
+            showError( "Invalid coordinates" );
+            return false;
+        }
+        return true;
+    }
    
     public void hatchEgg () {
         if ( onEgg() ) {
@@ -91,9 +114,6 @@ public class MyDodo extends Dodo
     }
     
     public void goToLocation(int coordX, int coordY) {
-        if (coordX > getWorld().getWidth() {
-            showError("Kan niet");
-        }
         while (getX() < coordX) {
             faceEast();
             move();
