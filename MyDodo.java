@@ -240,6 +240,21 @@ public class MyDodo extends Dodo
         walkToWorldEdge();
         turn180();           
     }
+    
+    public void countEggsInRow() {
+        int x = 0;
+        while (!borderAhead()) {
+            if (onEgg()) {
+                x++;
+            }
+            move();
+        }
+        if (onEgg()) {
+            x++;
+        }
+        showCompliment("Eggs:" + x);
+        goBackToStartOfRowAndFaceBack();
+    }
 
     public void walkToWorldEdgeClimbingOverFences() {
         while (!borderAhead()) {
